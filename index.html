@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Your Company — Clarity in Every Stage</title>
+  <!-- Google Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --gradient-start: #6E8FF3;
+      --gradient-mid: #B57EEA;
+      --gradient-end: #F36E8E;
+      --text-color: #333;
+      --bg-color: #fff;
+      --accent: #6E8FF3;
+      --transition: 0.3s ease;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Inter', sans-serif;
+      color: var(--text-color);
+      background: var(--bg-color);
+      line-height: 1.6;
+    }
+    a { text-decoration: none; color: inherit; }
+    img { max-width: 100%; display: block; }
+    button { cursor: pointer; border: none; font-family: inherit; }
+    /* Header */
+    header {
+      width: 100%;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      background: rgba(255,255,255,0.95);
+      z-index: 100;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    }
+    .logo { font-size: 1.5rem; font-weight: 700; color: var(--accent); }
+    nav {
+      display: flex;
+      gap: 2rem;
+    }
+    nav a { font-weight: 500; transition: color var(--transition); }
+    nav a:hover { color: var(--accent); }
+    .actions { display: flex; gap: 1rem; }
+    .btn {
+      padding: 0.6rem 1.2rem;
+      border-radius: 25px;
+      font-weight: 600;
+      transition: background var(--transition), transform var(--transition);
+    }
+    .btn-primary {
+      background: linear-gradient(90deg, var(--gradient-start), var(--gradient-end));
+      color: #fff;
+    }
+    .btn-secondary {
+      background: #fff;
+      color: var(--accent);
+      border: 2px solid var(--accent);
+    }
+    .btn:hover { transform: translateY(-2px); }
+
+    /* Mobile Menu */
+    .mobile-toggle { display: none; font-size: 1.5rem; cursor: pointer; }
+    @media(max-width: 768px) {
+      nav { display: none; position: absolute; top: 100%; left: 0; right: 0; background: #fff; flex-direction: column; gap: 1rem; padding: 1rem 2rem; box-shadow: 0 4px 8px rgba(0,0,0,0.1); }
+      nav.open { display: flex; }
+      .mobile-toggle { display: block; }
+    }
+
+    /* Hero */
+    .hero {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 4rem 2rem;
+      gap: 2rem;
+    }
+    .hero-text {
+      max-width: 500px;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity var(--transition), transform var(--transition);
+    }
+    .hero-text.visible { opacity: 1; transform: translateY(0); }
+    .hero-text h1 {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+      background: linear-gradient(90deg, var(--gradient-start), var(--gradient-end));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .hero-text p { margin-bottom: 1.5rem; color: #555; }
+
+    /* Statistics / Pain Points */
+    .stats {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-around;
+      padding: 2rem;
+      gap: 2rem;
+    }
+    .stat-item {
+      flex: 1 1 200px;
+      text-align: center;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity var(--transition), transform var(--transition);
+    }
+    .stat-item.visible { opacity: 1; transform: translateY(0); }
+    .stat-item h2 { font-size: 2rem; color: var(--accent); }
+    .stat-item p { color: #555; }
+
+    /* Features */
+    .features {
+      display: grid;
+      grid-template-columns: repeat(auto-fit,minmax(200px,1fr));
+      gap: 2rem;
+      padding: 2rem;
+    }
+    .feature {
+      text-align: center;
+      padding: 1rem;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity var(--transition), transform var(--transition);
+    }
+    .feature.visible { opacity: 1; transform: translateY(0); }
+    .feature img { width: 60px; height: 60px; margin-bottom: 0.8rem; }
+    .feature h3 { margin-bottom: 0.5rem; font-size: 1.2rem; }
+    .feature p { color: #555; font-size: 0.9rem; }
+
+    /* Results */
+    .results {
+      display: grid;
+      grid-template-columns: repeat(auto-fit,minmax(150px,1fr));
+      gap: 2rem;
+      padding: 2rem;
+      background: #f9f9f9;
+    }
+    .result-item {
+      text-align: center;
+      padding: 1rem;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity var(--transition), transform var(--transition);
+    }
+    .result-item.visible { opacity: 1; transform: translateY(0); }
+    .result-item h4 { margin-bottom: 0.5rem; font-size: 1.1rem; font-weight: 600; }
+    .result-item p { color: #555; font-size: 0.9rem; }
+
+    /* Process Timeline */
+    .process {
+      padding: 2rem;
+      position: relative;
+      margin: 2rem 0;
+    }
+    .process::before {
+      content: '';
+      position: absolute;
+      left: 50%;
+      width: 4px;
+      height: 100%;
+      background: linear-gradient(180deg, var(--gradient-start), var(--gradient-end));
+      transform: translateX(-50%);
+    }
+    .step {
+      position: relative;
+      width: 50%;
+      padding: 1rem 2rem;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity var(--transition), transform var(--transition);
+    }
+    .step.visible { opacity: 1; transform: translateY(0); }
+    .step:nth-child(odd) { left: 0; text-align: right; }
+    .step:nth-child(even) { left: 50%; }
+    .step .circle {
+      position: absolute;
+      top: 1rem;
+      width: 20px;
+      height: 20px;
+      background: var(--accent);
+      border-radius: 50%;
+    }
+    .step:nth-child(odd) .circle { right: -10px; }
+    .step:nth-child(even) .circle { left: -10px; }
+
+    /* Support */
+    .support {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2rem;
+      padding: 2rem;
+      align-items: center;
+    }
+    .support-item {
+      flex: 1 1 200px;
+      text-align: center;
+    }
+    .support-item img { width: 50px; height: 50px; margin-bottom: 0.5rem; }
+    .support-item p { font-size: 0.9rem; }
+
+    /* Speak to Experts */
+    .contact-section {
+      padding: 2rem;
+      text-align: center;
+      background: #f0f4ff;
+    }
+    .contact-section img { width: 200px; margin: 0 auto 1rem; border-radius: 10px; }
+    .contact-section p { margin-bottom: 1rem; color: #555; }
+    .whatsapp-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: #25D366;
+      color: #fff;
+      padding: 0.6rem 1rem;
+      border-radius: 25px;
+      font-weight: 600;
+      transition: transform var(--transition);
+    }
+    .whatsapp-btn:hover { transform: translateY(-2px); }
+
+    /* Footer */
+    footer {
+      background: #333;
+      color: #ccc;
+      padding: 2rem;
+    }
+    .footer-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit,minmax(150px,1fr));
+      gap: 2rem;
+    }
+    .footer-col h5 { margin-bottom: 0.8rem; color: #fff; }
+    .footer-col ul { list-style: none; }
+    .footer-col a { display: block; margin-bottom: 0.4rem; font-size: 0.9rem; transition: color var(--transition); }
+    .footer-col a:hover { color: var(--accent); }
+    .footer-bottom { text-align: center; margin-top: 1.5rem; font-size: 0.8rem; }
+
+    /* Reveal on Scroll */
+    .reveal { opacity: 0; transform: translateY(20px); transition: opacity var(--transition), transform var(--transition); }
+    .reveal.active { opacity: 1; transform: translateY(0); }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header>
+    <div class="logo">YourLogo</div>
+    <div class="mobile-toggle" id="mobile-toggle">☰</div>
+    <nav id="nav-menu">
+      <a href="#home">Home</a>
+      <a href="#services">Services</a>
+      <a href="#cases">Case Studies</a>
+      <a href="#about">About Us</a>
+    </nav>
+    <div class="actions">
+      <button class="btn btn-secondary">Book a Demo</button>
+      <button class="btn btn-primary">Contact</button>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero" id="home">
+    <div class="hero-text reveal">
+      <h1>Clarity in Every Stage of Your Project</h1>
+      <p>Deliver projects flawlessly with structured workflows, transparent documentation, and proactive communication.</p>
+      <button class="btn btn-primary">Request a Sample Report</button>
+    </div>
+    <div class="hero-image reveal">
+      <img src="path/to/abstract-image.jpg" alt="Abstract illustration">
+    </div>
+  </section>
+
+  <!-- Statistics / Pain Points -->
+  <section class="stats" id="stats">
+    <div class="stat-item reveal">
+      <h2>73%</h2>
+      <p>of projects miss deadlines due to poor planning</p>
+    </div>
+    <div class="stat-item reveal">
+      <h2>45%</h2>
+      <p>over budget because of lack of transparency</p>
+    </div>
+    <div class="stat-item reveal">
+      <h2>62%</h2>
+      <p>require extra revisions from unclear specs</p>
+    </div>
+  </section>
+
+  <!-- Features -->
+  <section class="features" id="services">
+    <div class="feature reveal">
+      <img src="path/to/icon-on-time.svg" alt="On-time delivery">
+      <h3>On-Time Delivery</h3>
+      <p>Ensure every milestone is met without delay.</p>
+    </div>
+    <div class="feature reveal">
+      <img src="path/to/icon-docs.svg" alt="Structured documentation">
+      <h3>Structured Documentation</h3>
+      <p>Keep your team aligned with clear, consistent reports.</p>
+    </div>
+    <div class="feature reveal">
+      <img src="path/to/icon-communication.svg" alt="Communication">
+      <h3>Consistent Communication</h3>
+      <p>Stay updated at every step with proactive notifications.</p>
+    </div>
+  </section>
+
+  <!-- Results -->
+  <section class="results" id="results">
+    <div class="result-item reveal">
+      <h4>Fewer Revisions</h4>
+      <p>Clear specs mean less back-and-forth.</p>
+    </div>
+    <div class="result-item reveal">
+      <h4>Greater Control</h4>
+      <p>Track progress in real time.</p>
+    </div>
+    <div class="result-item reveal">
+      <h4>Better ROI</h4>
+      <p>Optimize resources and budget.</p>
+    </div>
+    <div class="result-item reveal">
+      <h4>Higher Satisfaction</h4>
+      <p>Deliver exactly what you promised.</p>
+    </div>
+  </section>
+
+  <!-- Process Timeline -->
+  <section class="process" id="process">
+    <div class="step reveal">
+      <div class="circle"></div>
+      <h4>1. Setup & Kickoff</h4>
+      <p>Define goals, align stakeholders.</p>
+    </div>
+    <div class="step reveal">
+      <div class="circle"></div>
+      <h4>2. Planning & Design</h4>
+      <p>Map out workflows and deliverables.</p>
+    </div>
+    <div class="step reveal">
+      <div class="circle"></div>
+      <h4>3. Execution</h4>
+      <p>Implement tasks with regular updates.</p>
+    </div>
+    <div class="step reveal">
+      <div class="circle"></div>
+      <h4>4. Delivery & Review</h4>
+      <p>Hand over final assets and documentation.</p>
+    </div>
+  </section>
+
+  <!-- Support -->
+  <section class="support" id="support">
+    <div class="support-item">
+      <img src="path/to/icon-flexibility.svg" alt="Adaptable">
+      <p>Adapt to changing needs anytime.</p>
+    </div>
+    <div class="support-item">
+      <img src="path/to/icon-availability.svg" alt="Available">
+      <p>24/7 support for critical issues.</p>
+    </div>
+    <div class="support-item">
+      <img src="path/to/icon-strategy.svg" alt="Strategic">
+      <p>Strategic insights to optimize success.</p>
+    </div>
+    <button class="btn btn-primary" onclick="window.location.href='https://wa.me/1234567890'">Contact Us</button>
+  </section>
+
+  <!-- Speak to Experts -->
+  <section class="contact-section" id="contact">
+    <img src="path/to/team-photo.jpg" alt="Our Experts">
+    <h2>Speak to Our Experts</h2>
+    <p>Our team is ready to guide you at every step. Let's make your next project a success.</p>
+    <div class="actions" style="justify-content:center; gap:1rem;">
+      <a href="https://wa.me/1234567890?text=I%27d%20like%20to%20book%20a%20demo" class="whatsapp-btn">
+        📅 Book a Demo
+      </a>
+      <a href="https://wa.me/1234567890?text=I%27d%20like%20a%20sample%20report" class="whatsapp-btn">
+        📄 Request Sample Report
+      </a>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-grid">
+      <div class="footer-col">
+        <h5>Services</h5>
+        <ul>
+          <li><a href="#">Custom Link 1</a></li>
+          <li><a href="#">Custom Link 2</a></li>
+          <li><a href="#">Custom Link 3</a></li>
+          <li><a href="#">Custom Link 4</a></li>
+          <li><a href="#">Custom Link 5</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>Company</h5>
+        <ul>
+          <li><a href="#services">Services</a></li>
+          <li><a href="#locations">Locations</a></li>
+          <li><a href="#about">About</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>Global</h5>
+        <ul>
+          <li><a href="#">Privacy Policy</a></li>
+          <li><a href="#">Terms of Service</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>Upcoming</h5>
+        <ul>
+          <li><a href="#">Company 2</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">© 2024 Your Company. All Rights Reserved.</div>
+  </footer>
+
+  <!-- Scripts -->
+  <script>
+    // Mobile nav toggle
+    const toggle = document.getElementById('mobile-toggle');
+    const nav = document.getElementById('nav-menu');
+    toggle.addEventListener('click', () => nav.classList.toggle('open'));
+
+    // Scroll reveal
+    const reveals = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('active');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1 });
+    reveals.forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>
