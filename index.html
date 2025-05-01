@@ -3,447 +3,341 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Your Company — Clarity in Every Stage</title>
+  <title>3DWerx by BridgeBauer - Clarity in Every Stage</title>
   <!-- Google Font -->
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
+    /* CSS Variables */
     :root {
-      --gradient-start: #6E8FF3;
-      --gradient-mid: #B57EEA;
-      --gradient-end: #F36E8E;
-      --text-color: #333;
-      --bg-color: #fff;
-      --accent: #6E8FF3;
-      --transition: 0.3s ease;
+      --color-primary: #0052CC;
+      --color-secondary: #FF4081;
+      --color-accent: #00BFA5;
+      --color-bg: #F9FAFB;
+      --color-gray-100: #F1F5F9;
+      --color-gray-700: #374151;
+      --color-white: #FFFFFF;
+      --font-sans: 'Inter', sans-serif;
     }
     * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
     body {
-      font-family: 'Inter', sans-serif;
-      color: var(--text-color);
-      background: var(--bg-color);
+      font-family: var(--font-sans);
+      background: var(--color-bg);
+      color: var(--color-gray-700);
       line-height: 1.6;
     }
-    a { text-decoration: none; color: inherit; }
+    a { text-decoration: none; }
     img { max-width: 100%; display: block; }
-    button { cursor: pointer; border: none; font-family: inherit; }
-    /* Header */
-    header {
-      width: 100%;
-      padding: 1rem 2rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      position: sticky;
-      top: 0;
-      background: rgba(255,255,255,0.95);
-      z-index: 100;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-    }
-    .logo { font-size: 1.5rem; font-weight: 700; color: var(--accent); }
-    nav {
-      display: flex;
-      gap: 2rem;
-    }
-    nav a { font-weight: 500; transition: color var(--transition); }
-    nav a:hover { color: var(--accent); }
-    .actions { display: flex; gap: 1rem; }
-    .btn {
-      padding: 0.6rem 1.2rem;
-      border-radius: 25px;
-      font-weight: 600;
-      transition: background var(--transition), transform var(--transition);
-    }
-    .btn-primary {
-      background: linear-gradient(90deg, var(--gradient-start), var(--gradient-end));
-      color: #fff;
-    }
-    .btn-secondary {
-      background: #fff;
-      color: var(--accent);
-      border: 2px solid var(--accent);
-    }
-    .btn:hover { transform: translateY(-2px); }
+    button { cursor: pointer; border: none; }
 
-    /* Mobile Menu */
-    .mobile-toggle { display: none; font-size: 1.5rem; cursor: pointer; }
-    @media(max-width: 768px) {
-      nav { display: none; position: absolute; top: 100%; left: 0; right: 0; background: #fff; flex-direction: column; gap: 1rem; padding: 1rem 2rem; box-shadow: 0 4px 8px rgba(0,0,0,0.1); }
-      nav.open { display: flex; }
-      .mobile-toggle { display: block; }
-    }
+    /* Utilities */
+    .container { width: 90%; max-width: 1200px; margin: 0 auto; }
+    .flex { display: flex; }
+    .items-center { align-items: center; }
+    .justify-between { justify-content: space-between; }
+    .text-center { text-align: center; }
+    .mt-4 { margin-top: 1rem; }
+    .mt-8 { margin-top: 2rem; }
+    .mb-8 { margin-bottom: 2rem; }
+    .py-16 { padding: 4rem 0; }
+    .px-4 { padding: 0 1rem; }
+    .btn { padding: 0.75rem 1.5rem; font-weight: 600; border-radius: 0.375rem; transition: transform 0.2s; }
+    .btn-primary { background: var(--color-primary); color: var(--color-white); }
+    .btn-primary:hover { transform: scale(1.05); }
+    .btn-outline { background: transparent; color: var(--color-primary); border: 2px solid var(--color-primary); }
+    .btn-outline:hover { background: var(--color-primary); color: var(--color-white); }
+
+    /* Header & Nav */
+    header { background: var(--color-white); position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
+    nav.container { height: 80px; display: flex; justify-content: space-between; align-items: center; }
+    .nav-links a { margin-left: 1.5rem; font-weight: 500; color: var(--color-gray-700); }
+    .nav-links a:hover { color: var(--color-primary); }
 
     /* Hero */
-    .hero {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 4rem 2rem;
-      gap: 2rem;
+    .hero { background: linear-gradient(135deg, #6A11CB 0%, #2575FC 100%); color: var(--color-white); padding: 6rem 0; position: relative; overflow: hidden; }
+    .hero .container { display: flex; align-items: center; }
+    .hero-text { max-width: 600px; animation: fadeInUp 0.8s ease-out forwards; opacity: 0; }
+    .hero-text h1 { font-size: 2.5rem; font-weight: 700; line-height: 1.2; }
+    .hero-text p { font-size: 1.125rem; margin-top: 1rem; }
+    .hero-cta { margin-top: 2rem; }
+    .hero-illustration { flex: 1; position: relative; }
+    .card-stack { position: absolute; top: 0; right: -50px; width: 400px; height: 300px; }
+    /* Simple card stack effect */
+    .card-stack div {
+      width: 100%; height: 100%; background: var(--color-white);
+      border-radius: 0.5rem; position: absolute; top: 0; left: 0;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+      transform: rotate(calc(var(--i) * 2deg)) translateY(calc(var(--i) * 10px));
+      opacity: calc(1 - var(--i) * 0.1);
     }
-    .hero-text {
-      max-width: 500px;
-      opacity: 0;
-      transform: translateY(20px);
-      transition: opacity var(--transition), transform var(--transition);
-    }
-    .hero-text.visible { opacity: 1; transform: translateY(0); }
-    .hero-text h1 {
-      font-size: 2.5rem;
-      margin-bottom: 1rem;
-      background: linear-gradient(90deg, var(--gradient-start), var(--gradient-end));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-    .hero-text p { margin-bottom: 1.5rem; color: #555; }
 
-    /* Statistics / Pain Points */
-    .stats {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: space-around;
-      padding: 2rem;
-      gap: 2rem;
-    }
-    .stat-item {
-      flex: 1 1 200px;
-      text-align: center;
-      opacity: 0;
-      transform: translateY(20px);
-      transition: opacity var(--transition), transform var(--transition);
-    }
-    .stat-item.visible { opacity: 1; transform: translateY(0); }
-    .stat-item h2 { font-size: 2rem; color: var(--accent); }
-    .stat-item p { color: #555; }
+    /* Logo bar */
+    .partner-logos { background: var(--color-white); padding: 2rem 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 1.5rem; opacity: 0; transform: translateY(30px); }
 
-    /* Features */
-    .features {
-      display: grid;
-      grid-template-columns: repeat(auto-fit,minmax(200px,1fr));
-      gap: 2rem;
-      padding: 2rem;
-    }
-    .feature {
-      text-align: center;
-      padding: 1rem;
-      opacity: 0;
-      transform: translateY(20px);
-      transition: opacity var(--transition), transform var(--transition);
-    }
-    .feature.visible { opacity: 1; transform: translateY(0); }
-    .feature img { width: 60px; height: 60px; margin-bottom: 0.8rem; }
-    .feature h3 { margin-bottom: 0.5rem; font-size: 1.2rem; }
-    .feature p { color: #555; font-size: 0.9rem; }
+    /* Feature highlights */
+    .section { opacity: 0; transform: translateY(30px); }
+    .feature-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 2rem; margin-top: 2rem; }
+    .feature-card { background: var(--color-white); padding: 2rem; border-radius: 0.5rem; text-align: center; box-shadow: 0 4px 8px rgba(0,0,0,0.05); }
+    .feature-card h3 { font-size: 1.25rem; font-weight: 600; }
+    .feature-card p { margin-top: 0.5rem; font-size: 0.95rem; }
 
-    /* Results */
-    .results {
-      display: grid;
-      grid-template-columns: repeat(auto-fit,minmax(150px,1fr));
-      gap: 2rem;
-      padding: 2rem;
-      background: #f9f9f9;
-    }
-    .result-item {
-      text-align: center;
-      padding: 1rem;
-      opacity: 0;
-      transform: translateY(20px);
-      transition: opacity var(--transition), transform var(--transition);
-    }
-    .result-item.visible { opacity: 1; transform: translateY(0); }
-    .result-item h4 { margin-bottom: 0.5rem; font-size: 1.1rem; font-weight: 600; }
-    .result-item p { color: #555; font-size: 0.9rem; }
+    /* Section Titles */
+    .section-title { font-size: 1rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; color: var(--color-secondary); }
+    .section-heading { font-size: 2rem; font-weight: 700; margin-top: 0.5rem; }
+    .section-sub { margin-top: 0.5rem; font-size: 1.125rem; }
 
-    /* Process Timeline */
-    .process {
-      padding: 2rem;
-      position: relative;
-      margin: 2rem 0;
-    }
-    .process::before {
-      content: '';
-      position: absolute;
-      left: 50%;
-      width: 4px;
-      height: 100%;
-      background: linear-gradient(180deg, var(--gradient-start), var(--gradient-end));
-      transform: translateX(-50%);
-    }
-    .step {
-      position: relative;
-      width: 50%;
-      padding: 1rem 2rem;
-      opacity: 0;
-      transform: translateY(20px);
-      transition: opacity var(--transition), transform var(--transition);
-    }
-    .step.visible { opacity: 1; transform: translateY(0); }
-    .step:nth-child(odd) { left: 0; text-align: right; }
-    .step:nth-child(even) { left: 50%; }
-    .step .circle {
-      position: absolute;
-      top: 1rem;
-      width: 20px;
-      height: 20px;
-      background: var(--accent);
-      border-radius: 50%;
-    }
-    .step:nth-child(odd) .circle { right: -10px; }
-    .step:nth-child(even) .circle { left: -10px; }
-
-    /* Support */
-    .support {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 2rem;
-      padding: 2rem;
-      align-items: center;
-    }
-    .support-item {
-      flex: 1 1 200px;
-      text-align: center;
-    }
-    .support-item img { width: 50px; height: 50px; margin-bottom: 0.5rem; }
-    .support-item p { font-size: 0.9rem; }
-
-    /* Speak to Experts */
-    .contact-section {
-      padding: 2rem;
-      text-align: center;
-      background: #f0f4ff;
-    }
-    .contact-section img { width: 200px; margin: 0 auto 1rem; border-radius: 10px; }
-    .contact-section p { margin-bottom: 1rem; color: #555; }
-    .whatsapp-btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      background: #25D366;
-      color: #fff;
-      padding: 0.6rem 1rem;
-      border-radius: 25px;
-      font-weight: 600;
-      transition: transform var(--transition);
-    }
-    .whatsapp-btn:hover { transform: translateY(-2px); }
+    /* Call to Action Section */
+    .cta-section { background: var(--color-white); padding: 4rem 0; text-align: center; }
 
     /* Footer */
-    footer {
-      background: #333;
-      color: #ccc;
-      padding: 2rem;
-    }
-    .footer-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit,minmax(150px,1fr));
-      gap: 2rem;
-    }
-    .footer-col h5 { margin-bottom: 0.8rem; color: #fff; }
-    .footer-col ul { list-style: none; }
-    .footer-col a { display: block; margin-bottom: 0.4rem; font-size: 0.9rem; transition: color var(--transition); }
-    .footer-col a:hover { color: var(--accent); }
-    .footer-bottom { text-align: center; margin-top: 1.5rem; font-size: 0.8rem; }
+    footer { background: var(--color-gray-100); padding: 2rem 0; }
+    .footer-container { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; }
+    .footer-links { display: flex; flex-wrap: wrap; gap: 1rem; font-size: 0.875rem; }
+    .footer-links a { color: var(--color-gray-700); }
+    .social-icons a { margin-left: 1rem; color: var(--color-gray-700); }
+    .social-icons a:hover { color: var(--color-primary); }
 
-    /* Reveal on Scroll */
-    .reveal { opacity: 0; transform: translateY(20px); transition: opacity var(--transition), transform var(--transition); }
-    .reveal.active { opacity: 1; transform: translateY(0); }
+    /* Animations */
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .animate { opacity: 1 !important; transform: translateY(0) !important; transition: all 0.6s ease-out; }
   </style>
 </head>
 <body>
-  <!-- Header -->
+  <!-- Header & Nav -->
   <header>
-    <div class="logo">YourLogo</div>
-    <div class="mobile-toggle" id="mobile-toggle">☰</div>
-    <nav id="nav-menu">
-      <a href="#home">Home</a>
-      <a href="#services">Services</a>
-      <a href="#cases">Case Studies</a>
-      <a href="#about">About Us</a>
+    <nav class="container nav">
+      <div class="logo">
+        <img src="logo.svg" alt="BridgeBauer by 3DWerx" height="40">
+      </div>
+      <div class="nav-links">
+        <a href="#">Log In</a>
+        <a href="#">Book a Demo</a>
+        <a href="#">Join our Waitlist</a>
+      </div>
     </nav>
-    <div class="actions">
-      <button class="btn btn-secondary">Book a Demo</button>
-      <button class="btn btn-primary">Contact</button>
-    </div>
   </header>
 
   <!-- Hero Section -->
-  <section class="hero" id="home">
-    <div class="hero-text reveal">
-      <h1>Clarity in Every Stage of Your Project</h1>
-      <p>Deliver projects flawlessly with structured workflows, transparent documentation, and proactive communication.</p>
-      <button class="btn btn-primary">Request a Sample Report</button>
-    </div>
-    <div class="hero-image reveal">
-      <img src="path/to/abstract-image.jpg" alt="Abstract illustration">
-    </div>
-  </section>
-
-  <!-- Statistics / Pain Points -->
-  <section class="stats" id="stats">
-    <div class="stat-item reveal">
-      <h2>73%</h2>
-      <p>of projects miss deadlines due to poor planning</p>
-    </div>
-    <div class="stat-item reveal">
-      <h2>45%</h2>
-      <p>over budget because of lack of transparency</p>
-    </div>
-    <div class="stat-item reveal">
-      <h2>62%</h2>
-      <p>require extra revisions from unclear specs</p>
+  <section class="hero">
+    <div class="container flex items-center">
+      <div class="hero-text">
+        <div class="section-title">Get Things Done!</div>
+        <h1>Clarity in Every Stage of Your Project.</h1>
+        <p>3DWerx helps engineering firms deliver consistent, high-quality project documentation—paired with data-driven insights and tools to support every stage.</p>
+        <div class="hero-cta">
+          <button class="btn btn-primary">Request a Sample Report</button>
+        </div>
+      </div>
+      <div class="hero-illustration">
+        <div class="card-stack" style="--i:0"></div>
+        <div class="card-stack" style="--i:1"></div>
+        <div class="card-stack" style="--i:2"></div>
+        <div class="card-stack" style="--i:3"></div>
+      </div>
     </div>
   </section>
 
-  <!-- Features -->
-  <section class="features" id="services">
-    <div class="feature reveal">
-      <img src="path/to/icon-on-time.svg" alt="On-time delivery">
-      <h3>On-Time Delivery</h3>
-      <p>Ensure every milestone is met without delay.</p>
+  <!-- Partner Logos -->
+  <section class="partner-logos container section">
+    <img src="shells-logo.svg" alt="Shells">
+    <img src="smartfinder-logo.svg" alt="SmartFinder">
+    <img src="zoomer-logo.svg" alt="Zoomer">
+    <img src="artvenue-logo.svg" alt="ArtVenue">
+    <img src="kontraktor-logo.svg" alt="Kontraktor">
+    <img src="wavesmarathon-logo.svg" alt="WavesMarathon">
+  </section>
+
+  <!-- Industry Stats -->
+  <section class="container py-16 section" id="stats">
+    <div class="text-center">
+      <div class="section-heading">Delays, overruns, and inconsistent quality cost the AEC sector billions.</div>
+      <p class="section-sub">Better documentation is no longer a nice-to-have—it’s mission-critical.</p>
     </div>
-    <div class="feature reveal">
-      <img src="path/to/icon-docs.svg" alt="Structured documentation">
-      <h3>Structured Documentation</h3>
-      <p>Keep your team aligned with clear, consistent reports.</p>
-    </div>
-    <div class="feature reveal">
-      <img src="path/to/icon-communication.svg" alt="Communication">
-      <h3>Consistent Communication</h3>
-      <p>Stay updated at every step with proactive notifications.</p>
+    <div class="feature-grid mt-8">
+      <div class="feature-card">
+        <h3>95% of project data goes unused.</h3>
+        <p>We help you capture, structure, and activate every data point.</p>
+      </div>
+      <div class="feature-card">
+        <h3>10–25% of costs lost to rework.</h3>
+        <p>Our structured documentation and quality control reduces rework and repetition.</p>
+      </div>
+      <div class="feature-card">
+        <h3>2–3× more efficient teams.</h3>
+        <p>The right digital processes make even small teams deliver at scale.</p>
+      </div>
+      <div class="feature-card">
+        <h3>€1.5T global productivity loss.</h3>
+        <p>Working with these partners is the first step toward reclaiming value.</p>
+      </div>
     </div>
   </section>
 
-  <!-- Results -->
-  <section class="results" id="results">
-    <div class="result-item reveal">
-      <h4>Fewer Revisions</h4>
-      <p>Clear specs mean less back-and-forth.</p>
+  <!-- Professional Support -->
+  <section class="container section py-16" id="support">
+    <div class="text-center">
+      <div class="section-heading">Professional Support</div>
+      <div class="section-heading">What You Can Expect from Working with 3DWerx</div>
     </div>
-    <div class="result-item reveal">
-      <h4>Greater Control</h4>
-      <p>Track progress in real time.</p>
-    </div>
-    <div class="result-item reveal">
-      <h4>Better ROI</h4>
-      <p>Optimize resources and budget.</p>
-    </div>
-    <div class="result-item reveal">
-      <h4>Higher Satisfaction</h4>
-      <p>Deliver exactly what you promised.</p>
-    </div>
-  </section>
-
-  <!-- Process Timeline -->
-  <section class="process" id="process">
-    <div class="step reveal">
-      <div class="circle"></div>
-      <h4>1. Setup & Kickoff</h4>
-      <p>Define goals, align stakeholders.</p>
-    </div>
-    <div class="step reveal">
-      <div class="circle"></div>
-      <h4>2. Planning & Design</h4>
-      <p>Map out workflows and deliverables.</p>
-    </div>
-    <div class="step reveal">
-      <div class="circle"></div>
-      <h4>3. Execution</h4>
-      <p>Implement tasks with regular updates.</p>
-    </div>
-    <div class="step reveal">
-      <div class="circle"></div>
-      <h4>4. Delivery & Review</h4>
-      <p>Hand over final assets and documentation.</p>
+    <div class="feature-grid mt-8">
+      <div class="feature-card">
+        <h3>On-Schedule Delivery. Every Time.</h3>
+        <p>We plan and deliver to your deadlines—minimizing surprises and supporting your project milestones.</p>
+      </div>
+      <div class="feature-card">
+        <h3>Structured, Vetted Deliverables.</h3>
+        <p>From drawings to reports, every file is compliant, complete, and ready for immediate review or client submission.</p>
+      </div>
+      <div class="feature-card">
+        <h3>Clarity Through Data & Dashboards.</h3>
+        <p>Access quantities, costs, and carbon metrics all in one place—making your decisions more informed and your reports more credible.</p>
+      </div>
+      <div class="feature-card">
+        <h3>Consistent, Reliable Communications.</h3>
+        <p>You’ll always know where your projects stand, with regular updates and one point of contact from start to finish.</p>
+      </div>
     </div>
   </section>
 
-  <!-- Support -->
-  <section class="support" id="support">
-    <div class="support-item">
-      <img src="path/to/icon-flexibility.svg" alt="Adaptable">
-      <p>Adapt to changing needs anytime.</p>
+  <!-- Why It Matters -->
+  <section class="container py-16 section" id="why">
+    <div class="text-center"><br>
+      <h2 class="section-heading">Why It Matters</h2>
+      <p class="section-sub">Experience Better Projects from Day One.</p>
     </div>
-    <div class="support-item">
-      <img src="path/to/icon-availability.svg" alt="Available">
-      <p>24/7 support for critical issues.</p>
+    <div class="feature-grid mt-8">
+      <div class="feature-card">
+        <h3>Fewer Revisions. Smoother Approvals.</h3>
+        <p>We reduce diversion, fully coordinate drawings to reduce back-and-forth and keep teams on track.</p>
+        <a href="#" class="mt-4 btn btn-outline">More Info →</a>
+      </div>
+      <div class="feature-card">
+        <h3>Greater Clarity. Stronger Control.</h3>
+        <p>Access live dashboards with quantities, cost summaries, and insights so you stay fully informed.</p>
+        <a href="#" class="mt-4 btn btn-outline">More Info →</a>
+      </div>
+      <div class="feature-card">
+        <h3>Less Firefighting. More Predictability.</h3>
+        <p>With clearer schedules and enhanced coordination, you can confidently avoid last-minute crises.</p>
+        <a href="#" class="mt-4 btn btn-outline">More Info →</a>
+      </div>
+      <div class="feature-card">
+        <h3>More Insight. Better Decisions.</h3>
+        <p>We don’t just deliver info—we help you translate design options and metrics to support smarter choices.</p>
+        <a href="#" class="mt-4 btn btn-outline">More Info →</a>
+      </div>
     </div>
-    <div class="support-item">
-      <img src="path/to/icon-strategy.svg" alt="Strategic">
-      <p>Strategic insights to optimize success.</p>
-    </div>
-    <button class="btn btn-primary" onclick="window.location.href='https://wa.me/1234567890'">Contact Us</button>
   </section>
 
-  <!-- Speak to Experts -->
-  <section class="contact-section" id="contact">
-    <img src="path/to/team-photo.jpg" alt="Our Experts">
-    <h2>Speak to Our Experts</h2>
-    <p>Our team is ready to guide you at every step. Let's make your next project a success.</p>
-    <div class="actions" style="justify-content:center; gap:1rem;">
-      <a href="https://wa.me/1234567890?text=I%27d%20like%20to%20book%20a%20demo" class="whatsapp-btn">
-        📅 Book a Demo
-      </a>
-      <a href="https://wa.me/1234567890?text=I%27d%20like%20a%20sample%20report" class="whatsapp-btn">
-        📄 Request Sample Report
-      </a>
+  <!-- How We Work -->
+  <section class="container py-16 section" id="process">
+    <div class="text-center">
+      <h2 class="section-heading">How We Work With You</h2>
+      <p class="section-sub">From first inputs to final delivery, we follow a structured process designed for speed, clarity, and collaboration.</p>
+    </div>
+    <div class="mt-8 feature-grid">
+      <div class="feature-card">
+        <h3>Step 1 – Set the Scope</h3>
+        <p>We start with a short onboarding session to align on project type, design standards, and input formats.</p>
+      </div>
+      <div class="feature-card">
+        <h3>Step 2 – Input &amp; Setup</h3>
+        <p>Our client uploads source materials... <br> We standardize these and clarify missing items via our proprietary LoP system.</p>
+      </div>
+      <div class="feature-card">
+        <h3>Step 3 – Documentation in Progress</h3>
+        <p>Our team develops drawings, models, and reports. Clients get live dashboard updates and requests for clarification.</p>
+      </div>
+      <div class="feature-card">
+        <h3>Step 4 – Review &amp; Feedback</h3>
+        <p>Clients review detailed documents and provide feedback for amendments.</p>
+      </div>
+      <div class="feature-card">
+        <h3>Step 5 – Final Delivery &amp; Support</h3>
+        <p>Clients receive a complete, signed-off documentation package plus data analytics for ongoing value.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Flexibility Section -->
+  <section class="container py-16 section" id="flexibility">
+    <div class="text-center">
+      <h2 class="section-heading">Built for Flexibility. Designed to Fit Your Needs.</h2>
+      <p class="section-sub">Every project is different—so are the teams. We adapt our tools, workflows, and deliverables to suit the way you work.</p>
+    </div>
+    <div class="mt-8 feature-grid">
+      <div class="feature-card">
+        <h3>Open to Any Project Type</h3>
+        <p>From bridges to data centers... our workflows fit your domain without compromise.</p>
+      </div>
+      <div class="feature-card">
+        <h3>Tools Tailored to You</h3>
+        <p>Need something specific? We shape dashboards, inputs & outputs to match your needs.</p>
+      </div>
+      <div class="feature-card">
+        <h3>Improving Quality, Lowering Cost</h3>
+        <p>We partner with leads & managers to spot inefficiencies, tighten delivery, and reduce rework.</p>
+      </div>
+      <div class="feature-card">
+        <h3>It’s Your Solution</h3>
+        <p>Unique challenges? Bring us in early & we’ll shape the right support around your vision.</p>
+      </div>
+    </div>
+    <div class="text-center mt-8">
+      <button class="btn btn-primary">Contact Us</button>
+    </div>
+  </section>
+
+  <!-- Final CTA -->
+  <section class="cta-section section" id="talk">
+    <div class="container">
+      <h2>Speak to our Experts</h2>
+      <p>Book a no-obligation call to learn how we work—and how we can support your teams with reliable deliverables and transparent, predictable project coordination.</p>
+      <div class="flex justify-center mt-4">
+        <button class="btn btn-outline">Book a Demo</button>
+        <button class="btn btn-primary" style="margin-left:1rem;">Request a Sample Report</button>
+      </div>
     </div>
   </section>
 
   <!-- Footer -->
   <footer>
-    <div class="footer-grid">
-      <div class="footer-col">
-        <h5>Services</h5>
-        <ul>
-          <li><a href="#">Custom Link 1</a></li>
-          <li><a href="#">Custom Link 2</a></li>
-          <li><a href="#">Custom Link 3</a></li>
-          <li><a href="#">Custom Link 4</a></li>
-          <li><a href="#">Custom Link 5</a></li>
-        </ul>
+    <div class="container footer-container">
+      <img src="logo-footer.svg" alt="BridgeBauer by 3DWerx" height="30">
+      <div class="footer-links">
+        <a href="#">About Us</a>
+        <a href="#">Careers</a>
+        <a href="#">Service Terms</a>
+        <a href="#">Privacy Policy</a>
+        <a href="#">Impressum</a>
+        <a href="#">Contact Us</a>
       </div>
-      <div class="footer-col">
-        <h5>Company</h5>
-        <ul>
-          <li><a href="#services">Services</a></li>
-          <li><a href="#locations">Locations</a></li>
-          <li><a href="#about">About</a></li>
-        </ul>
-      </div>
-      <div class="footer-col">
-        <h5>Global</h5>
-        <ul>
-          <li><a href="#">Privacy Policy</a></li>
-          <li><a href="#">Terms of Service</a></li>
-        </ul>
-      </div>
-      <div class="footer-col">
-        <h5>Upcoming</h5>
-        <ul>
-          <li><a href="#">Company 2</a></li>
-        </ul>
+      <div class="social-icons">
+        <a href="#">FB</a>
+        <a href="#">TW</a>
+        <a href="#">LI</a>
+        <a href="#">IG</a>
       </div>
     </div>
-    <div class="footer-bottom">© 2024 Your Company. All Rights Reserved.</div>
   </footer>
 
-  <!-- Scripts -->
+  <!-- Scroll Animation Script -->
   <script>
-    // Mobile nav toggle
-    const toggle = document.getElementById('mobile-toggle');
-    const nav = document.getElementById('nav-menu');
-    toggle.addEventListener('click', () => nav.classList.toggle('open'));
-
-    // Scroll reveal
-    const reveals = document.querySelectorAll('.reveal');
-    const observer = new IntersectionObserver(entries => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('active');
-          observer.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.1 });
-    reveals.forEach(el => observer.observe(el));
+    document.addEventListener('DOMContentLoaded', () => {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('animate');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.2 });
+      document.querySelectorAll('.section').forEach(sec => observer.observe(sec));
+      document.querySelectorAll('.partner-logos').forEach(sec => observer.observe(sec));
+    });
   </script>
 </body>
 </html>
